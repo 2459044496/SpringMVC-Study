@@ -13,6 +13,18 @@ import java.util.Map;
 @RequestMapping("testAnnotation")
 public class TestAnnotationController {
 
+    /**
+    *常用注解	作用
+    *@RestController	由 @Controller + @ResponseBody组成（返回 JSON 数据格式）
+    *@PathVariable	URL 中的 {xxx} 占位符可以通过@PathVariable(“xxx“) 绑定到控制器处理方法的形参中
+    *@RequestMapping	注解用于请求地址的解析，是最常用的一种注解
+    *@GetMapping	查询请求
+    *@PostMapping	添加请求
+    *@PutMapping	更新请求
+    *@DeleteMapping	删除请求
+    *@RequestParam	将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）
+    */
+
     /* @RequestParam
     * 使用范围： 形参
     * 属性：
@@ -90,5 +102,40 @@ public class TestAnnotationController {
         return "default";
     }
 
+    @RequestMapping("/teRequestHeader")
+    @ResponseBody// 返回 JSON 数据格式，不再是ModuleAndView
+    public String teRequestHeader(@RequestHeader(value = "User-Agent", required = false,
+            defaultValue = "我是默认值")String headInfo) {
+        return headInfo;
+    }
+
+    @RequestMapping("/teCookieValue")
+    @ResponseBody// 返回 JSON 数据格式，不再是ModuleAndView
+    // Cookie参数在请求头中格式为
+    // Cookie: JSESSIONID=XXXXX
+    // 其他请求头格式为:    请求头名：请求头值
+    public String teCookieValue(@CookieValue(value = "JSESSIONID", required = false,
+            defaultValue = "我是默认值")String sessionId) {
+        return sessionId;
+    }
+
+
+    /*
+    * @ModelAttribute
+    * 应用在方法上  先执行@ModelAttribute注解修饰的方法
+    * 应用在方法的参数上  调用方法时，模型的值会被注入。这在实际使用时非常简单，常用于将表单属性映射到模型对象（参数为对象）。
+    * 应用在方法上，并且方法也使用了 @RequestMapping。  方法的返回值会存入到 Model 对象中，key 为 ModelAttribute 的 value 属性值。
+方法的返回值不再是方法的访问路径，访问路径会变为 @RequestMapping 的 value 值，例如：@RequestMapping(value = "/index") 跳转的页面是 index.jsp 页面。
+    * */
+    @ModelAttribute
+    public void exeModelAttribute() {
+        System.out.println("执行@ModelAttribute注解修饰的方法");
+    }
+
+    @RequestMapping("/teModelAttribute")
+    @ResponseBody
+    public String teModelAttribute() {
+        return "123";
+    }
 
 }
