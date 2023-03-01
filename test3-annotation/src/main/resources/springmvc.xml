@@ -10,7 +10,20 @@
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <contex:component-scan base-package="cn.cuiper.controller"/>
+    <contex:component-scan base-package="cn.cuiper"/>
+
+    <!--配置SimpleMappingExceptionResolver异常处理器-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" >
+        <!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
+        <property name="exceptionAttribute" value="ex"/>
+        <property name="exceptionMappings">
+            <props>
+                <!-- 指定异常跳转的错误视图 -->
+                <prop key="java.lang.ArrayIndexOutOfBoundsException">simpleMappigExceptionResolver</prop>
+                <prop key="java.lang.NullPointerException">simpleMappigExceptionResolver</prop>
+            </props>
+        </property>
+    </bean>
 
     <!--配置视图解析器,order(优先级)值越小优先级越高-->
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
