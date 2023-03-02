@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:contex="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <contex:component-scan base-package="cn.cuiper"/>
+
+    <!--  开启SpringMVC框架注解的支持  -->
+    <mvc:annotation-driven/>
+
+    <!--<bean id="myConverter" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="cn.cuiper.databinder.dataconverter.MyConverter"></bean>
+            </set>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven conversion-service="myConverter" />-->
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!--中文乱码解决-->
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <property name="supportedMediaTypes">
+                <list>
+                    <value>application/json;charset=UTF-8</value>
+                    <value>text/html;charset=UTF-8</value>
+                </list>
+            </property>
+        </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 让Spring MVC不处理静态资源 -->
+    <mvc:default-servlet-handler/>
+
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>

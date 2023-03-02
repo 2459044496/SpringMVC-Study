@@ -44,7 +44,7 @@ public class TestAnnotationController {
     }
 
 
-    /* @RequestBody
+    /* @RequestBody  使用需要导入json序列化依赖，例如jackson
      * 接收JSON格式报文
      * 使用范围： 形参
      * get请求不适用该注解
