@@ -53,5 +53,19 @@
         <!--后缀-->
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--
+            /** 拦截所有映射
+            /* 拦截/开头的映射
+            /testMyInterceptorController/* 拦截/testMyInterceptorController开头的映射
+            /test/add* 拦截/test/add开头的映射
+            /test/*All 拦截/test/All结尾的映射
+            -->
+            <mvc:mapping path="/testMyInterceptorController/*"/>
+            <bean class="cn.cuiper.databinder.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
