@@ -25,7 +25,7 @@ package cn.cuiper.databinder.interceptor;
  *             <bean class="cn.cuiper.databinder.interceptor.MyInterceptor"/>
  *         </mvc:interceptor>
  *
- * 执行顺序
+ * 执行顺序，controller方法存在异常时，不会执行第（3）步
  * (1),执行preHandle
  * (2),执行controller方法
  * (3),执行postHandle

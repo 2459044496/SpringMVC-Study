@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice
-@RestController
 // 全局异常处理类，可以定义多个方法处理指定的异常
 public class MyExceptionHandlerAdvice {
 
